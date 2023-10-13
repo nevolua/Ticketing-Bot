@@ -2,7 +2,6 @@
 
 The Discord Ticketing Bot is a versatile bot designed to create and manage ticketing systems in your Discord server. This bot simplifies the process of handling support requests, enabling efficient communication between server members and support staff.
 
-![Discord Ticketing Bot](link-to-bot-image.png)
 
 ## Table of Contents
 - [Introduction](#introduction)
@@ -54,8 +53,9 @@ npm install
 3. Configure the bot by editing the `config.json` file. Replace the placeholders with your bot token and other settings.
 
 4. Start the bot:
-```npm run start```
-
+```
+npm run start
+```
 
 ## Usage:
 
