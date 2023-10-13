@@ -82,6 +82,8 @@ async function handleButtonInteraction(interaction) {
       }
     } else if (interaction.customId === "buyItem") {
       functions.getTicketInfo.exec(interaction);
+    } else if (interaction.customId === "buyCurrency") {
+      functions.getCurrencyInfo.exec(interaction);
     }
   } catch (e) {
     //
