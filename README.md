@@ -35,6 +35,7 @@ The Discord Ticketing Bot streamlines your server's support operations by provid
 
 Before you begin, ensure you have met the following requirements:
 
+- NodeJS installed on your computer
 - A Discord server where you have administrative privileges.
 - A Discord bot token, which you can obtain by creating a bot on the Discord Developer Portal.
 
@@ -71,7 +72,7 @@ The bot's behavior can be customized by editing the `config.json` file. Here's w
 - **ticketMessageChannel**: The ID of the channel where ticket messages will be sent.
 - **stockChannel**: The ID of the channel where stock information is displayed.
 - **admins**: An array of user IDs with admin privileges.
-- **stockUpdateInterval**: The time interval (in milliseconds) for updating stock information.
+- **stockUpdateInterval**: The time interval (in milliseconds) inbetween each stock information update.
 
 ## Bot Commands:
 
