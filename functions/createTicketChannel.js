@@ -1,7 +1,7 @@
 const {ComponentType} = require('discord.js');
 
-const components = require('../components/_export');
 const utils = require('../utils');
+const components = utils.getComponents();
 
 async function exec(interaction) {
       const guild = interaction.guild;

@@ -1,9 +1,9 @@
 {
-    "ticketMessageChannel" : "1161736506470322337",
-    "stockChannel" : "1162115318286659614",
-  
-    "token": "",
-    "admins" : ["908526607130591233"],
+  "ticketMessageChannel": "1161736506470322337",
+  "stockChannel": "1162115318286659614",
 
-    "stockUpdateInterval" : 15000
+  "token": "",
+  "admins": ["908526607130591233"],
+
+  "stockUpdateInterval": 15000
 }

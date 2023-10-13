@@ -1,8 +1,8 @@
 const { REST, Routes } = require('discord.js');
 const { ChannelType, SlashCommandBuilder } = require('discord.js');
 const fs = require('fs');
-
 const settings = JSON.parse(fs.readFileSync('config.json'));
+const path = require('path');
 
 async function createTextChannel(guild, username) {
   const channel = await guild.channels.create({
@@ -14,66 +14,27 @@ async function createTextChannel(guild, username) {
   return channel
 }
 
-
 async function registerCmds() {
 
-  const commands = [
+  var requires = []; 
 
-    new SlashCommandBuilder()
-        .setName('subtractstock')
-        .setDescription('Removes from the stock of an item (default 1)')
-        .addStringOption(option =>
-            option.setName('item')
-                .setDescription('Item to remove stock from')
-                .setRequired(true)
-        )
-        .addStringOption(option =>
-              option.setName('amount')
-                  .setDescription('Amount to remove (default 1)')
-                  .setRequired(false)
-        ),
+  fs.readdirSync(`${__dirname}/commands/`).forEach(file => {
+    if(file !== '_export.js') {
+      requires.push(require(path.join(`${__dirname}/commands/`, file)));
+    }
+  });
 
-    new SlashCommandBuilder()
-        .setName('addstock')
-        .setDescription("Adds to the stock of an item (default 1)")
-        .addStringOption(option =>
-            option.setName('item')
-                .setDescription('Item to add stock to')
-                .setRequired(true)
-        )
-        .addStringOption(option =>
-            option.setName('amount')
-                .setDescription('Amount to add (default 1)')
-                .setRequired(false)
-        ),
-        
-    new SlashCommandBuilder()
-        .setName('newitem')
-        .setDescription("Adds a new item to the stock")
-        .addStringOption(option =>
-          option.setName('name')
-              .setDescription('Name of item')
-              .setRequired(true)
-        )
-        .addStringOption(option =>
-          option.setName('price')
-              .setDescription('Price of one of the items')
-              .setRequired(true)
-        )
-        .addStringOption(option =>
-            option.setName('amount')
-                .setDescription('Amount of item in stock')
-                .setRequired(true)
-        ),
-        
-        
-  ];
-  
+  var commands = []; 
+
+  requires.forEach((commandFile) => {
+    var commandBuilder = commandFile.commandBuilder();
+    commands.push(commandBuilder);
+  })
+
   const rest = new REST({ version: '10' }).setToken(settings.token);
   
   try {
     console.log('Started refreshing application (/) commands.');
-  
     await rest.put(Routes.applicationCommands('1158193136447791234'), { body: commands });
   
     console.log('Successfully reloaded application (/) commands.');
@@ -89,8 +50,6 @@ function getDataForItem(itemToLookFor) {
 
     return itemData;
 }
-
-
 
 function checkAdmin(interaction) {
   const settings = JSON.parse(fs.readFileSync('config.json'));
@@ -117,4 +76,40 @@ async function purge(channel) {
   
 }
 
-module.exports = { registerCmds, createTextChannel, getDataForItem, checkAdmin, purge }
+function getCommands() {
+  var requires = {};
+
+  fs.readdirSync(`${__dirname}/commands/`).forEach(file => {
+      requires[file.replace('.js', '')] = require(path.join(`${__dirname}/commands/`, file));
+  });
+
+
+  return requires;
+
+}
+
+function getComponents() {
+  var requires = {};
+
+  fs.readdirSync(`${__dirname}/components/`).forEach(file => {
+      requires[file.replace('.js', '')] = require(path.join(`${__dirname}/components/`, file));
+  });
+
+  return requires;
+}
+
+function getFunctions() {
+  var requires = {};
+
+  fs.readdirSync(`${__dirname}/functions/`).forEach(file => {
+      requires[file.replace('.js', '')] = require(path.join(`${__dirname}/functions/`, file));
+  });
+
+  return requires;
+}
+
+function getItems() {
+      const data = JSON.parse(fs.readFileSync("data/items.json"))
+      return data;
+}
+module.exports = { registerCmds, createTextChannel, getDataForItem, checkAdmin, purge, getCommands, getComponents, getFunctions, getItems }
