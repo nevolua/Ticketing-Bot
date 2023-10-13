@@ -9,8 +9,8 @@ function dropdown(interaction, items) {
     .addOptions(
       items.map((item) => 
         new StringSelectMenuOptionBuilder()
-          .setLabel(item.name)
-          .setDescription(item.price)
+          .setLabel(`${item.name} (${item.amount})`)
+          .setDescription(`Price: ${item.price} each`)
           .setValue(item.name)
       )
     )
