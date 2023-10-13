@@ -15,15 +15,13 @@ function modal(interaction) {
 
       var items = "";
       interaction.values.forEach((item, index) => {
-        items = items + item 
+        items += (item + ", ")
 
-        if (!index == interaction.values.length-1) {
-          items = items + ", "
-        }
       })
+
   
       return new ModalBuilder()
-        .setCustomId(interaction.values[0])
+        .setCustomId(items)
         .setTitle('Buying: '+items)
         .addComponents(
           new ActionRowBuilder().addComponents(fields.username),

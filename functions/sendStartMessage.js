@@ -5,7 +5,7 @@ const path = require('path');
 const settings = JSON.parse(fs.readFileSync('config.json'));
 
 const utils = require('../utils');
-const components = require('../components/export');
+const components = require('../components/_export');
 
 async function exec(client){
 

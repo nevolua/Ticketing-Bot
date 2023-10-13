@@ -5,8 +5,8 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 const utils = require("./utils");
 const settings = JSON.parse(fs.readFileSync('config.json'));
-const functions = require("./functions/export.js");
-const commands = require("./commands/export.js");
+const functions = require("./functions/_export.js");
+const commands = require("./commands/_export.js");
 
 utils.registerCmds();
 

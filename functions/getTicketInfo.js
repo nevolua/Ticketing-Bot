@@ -1,7 +1,7 @@
 const { ActionRowBuilder, ComponentType, ModalBuilder, TextInputBuilder, TextInputStyle, StringSelectMenuBuilder, StringSelectMenuOptionBuilder } = require('discord.js');
 const fs = require('fs');
 
-const components = require('../components/export');
+const components = require('../components/_export');
 
 async function exec(interaction) {
     const text = fs.readFileSync('data/items.json');

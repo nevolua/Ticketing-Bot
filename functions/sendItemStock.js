@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const components = require('../components/export');
+const components = require('../components/_export');
 const utils = require('../utils');
 
 const settings = JSON.parse(fs.readFileSync('config.json'))
