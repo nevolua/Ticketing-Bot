@@ -19,21 +19,32 @@ async function registerCmds() {
   const commands = [
 
     new SlashCommandBuilder()
-        .setName('decrement')
-        .setDescription('Removes one from the stock of a skin')
+        .setName('subtractstock')
+        .setDescription('Removes from the stock of a skin')
         .addStringOption(option =>
             option.setName('item')
-                .setDescription('Item to decrement')
+                .setDescription('Item to remove stock from')
                 .setRequired(true)
-            ),
+        )
+        .addStringOption(option =>
+              option.setName('amount')
+                  .setDescription('Amount to remove')
+                  .setRequired(false)
+        ),
+
     new SlashCommandBuilder()
-        .setName('increment')
-        .setDescription("Adds one to the stock of a skin")
+        .setName('addstock')
+        .setDescription("Adds to the stock of a skin")
         .addStringOption(option =>
             option.setName('item')
-                .setDescription('Item to increment')
+                .setDescription('Item to add stock to')
                 .setRequired(true)
-            )
+        )
+        .addStringOption(option =>
+            option.setName('amount')
+                .setDescription('Amount to add')
+                .setRequired(false)
+        )
         
   ];
   
@@ -71,12 +82,16 @@ function addNewItems(name, amount = null, price = null) {
     fs.writeFileSync('data/skins.json', JSON.stringify(data));
 }
 
-function decrementItem(name) {
+function decrementItem(name, amount) {
     var data = JSON.parse(fs.readFileSync('data/skins.json'));
 
     try{
         if(data.find(item => item.name === name).amount > 0) {
-            data.find(item => item.name === name).amount--
+
+          for (var i = 0; i < amount; i++) {
+            data.find(item => item.name === name).amount--;
+          }
+          
         }
     } catch (e) {
         console.log(e);
@@ -85,12 +100,13 @@ function decrementItem(name) {
     fs.writeFileSync('data/skins.json', JSON.stringify(data));
 }
 
-function incrementItem(name) {
+function incrementItem(name, amount) {
     var data = JSON.parse(fs.readFileSync('data/skins.json'));
 
     try{
-
+      for (var i = 0; i < amount; i++) {
         data.find(item => item.name === name).amount++;
+      }
     } catch (e) {
         console.log(e);
     }
@@ -110,12 +126,16 @@ function checkAdmin(interaction) {
 }
 
 async function purge(channel) {
-  let fetched;
-  do {
-    fetched = await channel.messages.fetch({limit: 100});
-    await channel.bulkDelete(fetched);
-  }
-  while(fetched.size >= 2);
+  try{
+    let fetched;
+    do {
+      fetched = await channel.messages.fetch({limit: 100});
+      await channel.bulkDelete(fetched);
+    }
+    while(fetched.size >= 2);
+  } catch (e) {
+    //
+  }  
   
 }
 
