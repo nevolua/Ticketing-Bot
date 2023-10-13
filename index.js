@@ -96,7 +96,5 @@ async function handleModalSubmit(interaction) {
     ephemeral: true,
   });
 
-  setTimeout(function() { interaction.fetchReply().delete() }, 3000)
-
   await functions.createTicketChannel.exec(interaction);
 }
