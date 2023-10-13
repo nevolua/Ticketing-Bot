@@ -50,14 +50,17 @@ async function setupTicketChannel() {
 }
 
 // Function to schedule stock updates
-function scheduleStockUpdates() {
+async function scheduleStockUpdates() {
+  utils.registerCmds();
+
+  const stockChannel = client.channels.cache.get(settings.stockChannel);
+
+  await utils.purge(stockChannel);
+  const message = await stockChannel.send(components.stockEmbed.embed());
+
   setInterval(async () => {
     utils.registerCmds();
-
-    const stockChannel = client.channels.cache.get(settings.stockChannel);
-
-    await utils.purge(stockChannel);
-    await stockChannel.send(components.stockEmbed.embed());
+    message.edit(components.stockEmbed.embed());
   }, settings.stockUpdateInterval);
 }
 
@@ -92,5 +95,8 @@ async function handleModalSubmit(interaction) {
       "Your submission was received successfully! Creating you a ticket now.",
     ephemeral: true,
   });
+
+  setTimeout(function() { interaction.fetchReply().delete() }, 3000)
+
   await functions.createTicketChannel.exec(interaction);
 }
