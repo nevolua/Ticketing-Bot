@@ -3,7 +3,7 @@
   "stockChannel": "",
 
   "token": "",
-  "admins": [],
+  "admins": [""],
 
   "stockUpdateInterval": 2000
 }
