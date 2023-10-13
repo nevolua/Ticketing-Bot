@@ -1,6 +1,6 @@
 # Discord Ticketing Bot
 
-The Discord Ticketing Bot is a versatile bot designed to create and manage ticketing systems in your Discord server. This bot simplifies the process of handling support requests, enabling efficient communication between server members and support staff.
+The Discord Ticketing Bot is a versatile bot designed to create and manage ticketing systems, specifically for selling products/currency in your Discord server. This bot simplifies the process of handling support requests, enabling efficient communication between server members and support staff.
 
 
 ## Table of Contents
@@ -79,6 +79,7 @@ The bot's behavior can be customized by editing the `config.json` file. Here's w
 - `/addstock <item> [amount]`: Add items to the stock.
 - `/subtractstock <item> [amount]`: Subtract items from the stock.
 - `/newitem <name> <price> <amount>`: Add a new item to the stock.
+- `/removeitem <name>`: Removes an item from the stock entirely.
 
 ## Customization:
 
