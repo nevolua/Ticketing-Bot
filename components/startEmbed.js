@@ -18,8 +18,8 @@ function embed() {
   })
 
   const button = new ButtonBuilder()
-        .setCustomId('buySkin')
-        .setLabel('Buy Skin(s)')
+        .setCustomId('buyItem')
+        .setLabel('Buy Item(s)')
         .setStyle(ButtonStyle.Secondary);
     
     

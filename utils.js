@@ -16,11 +16,12 @@ async function createTextChannel(guild, username) {
 
 
 async function registerCmds() {
+
   const commands = [
 
     new SlashCommandBuilder()
         .setName('subtractstock')
-        .setDescription('Removes from the stock of a skin')
+        .setDescription('Removes from the stock of an item (default 1)')
         .addStringOption(option =>
             option.setName('item')
                 .setDescription('Item to remove stock from')
@@ -28,13 +29,13 @@ async function registerCmds() {
         )
         .addStringOption(option =>
               option.setName('amount')
-                  .setDescription('Amount to remove')
+                  .setDescription('Amount to remove (default 1)')
                   .setRequired(false)
         ),
 
     new SlashCommandBuilder()
         .setName('addstock')
-        .setDescription("Adds to the stock of a skin")
+        .setDescription("Adds to the stock of an item (default 1)")
         .addStringOption(option =>
             option.setName('item')
                 .setDescription('Item to add stock to')
@@ -42,9 +43,29 @@ async function registerCmds() {
         )
         .addStringOption(option =>
             option.setName('amount')
-                .setDescription('Amount to add')
+                .setDescription('Amount to add (default 1)')
                 .setRequired(false)
+        ),
+        
+    new SlashCommandBuilder()
+        .setName('newitem')
+        .setDescription("Adds a new item to the stock")
+        .addStringOption(option =>
+          option.setName('name')
+              .setDescription('Name of item')
+              .setRequired(true)
         )
+        .addStringOption(option =>
+          option.setName('price')
+              .setDescription('Price of one of the items')
+              .setRequired(true)
+        )
+        .addStringOption(option =>
+            option.setName('amount')
+                .setDescription('Amount of item in stock')
+                .setRequired(true)
+        ),
+        
         
   ];
   
@@ -62,57 +83,14 @@ async function registerCmds() {
 }
 
 function getDataForItem(itemToLookFor) {
-    const data = JSON.parse(fs.readFileSync("data/skins.json"))
+    const data = JSON.parse(fs.readFileSync("data/items.json"))
 
     const itemData = data.find(item => item.name === itemToLookFor);
 
     return itemData;
 }
 
-function addNewItems(name, amount = null, price = null) {
-    var data = JSON.parse(fs.readFileSync('data/skins.json'));
 
-    try{
-        data.find(item => item.name === name).amount += amount;
-    } catch (e) {
-        data.push({'name': name, 'price': price, 'amount': amount});
-    }
-
-
-    fs.writeFileSync('data/skins.json', JSON.stringify(data));
-}
-
-function decrementItem(name, amount) {
-    var data = JSON.parse(fs.readFileSync('data/skins.json'));
-
-    try{
-        if(data.find(item => item.name === name).amount > 0) {
-
-          for (var i = 0; i < amount; i++) {
-            data.find(item => item.name === name).amount--;
-          }
-          
-        }
-    } catch (e) {
-        console.log(e);
-    }
-
-    fs.writeFileSync('data/skins.json', JSON.stringify(data));
-}
-
-function incrementItem(name, amount) {
-    var data = JSON.parse(fs.readFileSync('data/skins.json'));
-
-    try{
-      for (var i = 0; i < amount; i++) {
-        data.find(item => item.name === name).amount++;
-      }
-    } catch (e) {
-        console.log(e);
-    }
-
-    fs.writeFileSync('data/skins.json', JSON.stringify(data));
-}
 
 function checkAdmin(interaction) {
   const settings = JSON.parse(fs.readFileSync('config.json'));
@@ -139,4 +117,4 @@ async function purge(channel) {
   
 }
 
-module.exports = { registerCmds, createTextChannel, getDataForItem, addNewItems, decrementItem, checkAdmin, purge, incrementItem }
+module.exports = { registerCmds, createTextChannel, getDataForItem, checkAdmin, purge }

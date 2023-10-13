@@ -4,12 +4,12 @@ const fs = require('fs');
 const components = require('../components/export');
 
 async function exec(interaction) {
-    const text = fs.readFileSync('data/skins.json');
-    skins = JSON.parse(text);
+    const text = fs.readFileSync('data/items.json');
+    items = JSON.parse(text);
 
-    skins = skins.filter((skin) => skin.amount > 0);
+    items = items.filter((item) => item.amount > 0);
 
-    const dropDown = components.skinDropdown.dropdown(interaction, skins);
+    const dropDown = components.itemDropdown.dropdown(interaction, items);
 
     await interaction.reply(dropDown)
     const reply = await interaction.fetchReply();

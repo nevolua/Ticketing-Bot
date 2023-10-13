@@ -13,18 +13,18 @@ function modal(interaction) {
           .setStyle(TextInputStyle.Short)
       }
 
-      var skins = "";
-      interaction.values.forEach((skin, index) => {
-        skins = skins + skin 
+      var items = "";
+      interaction.values.forEach((item, index) => {
+        items = items + item 
 
         if (!index == interaction.values.length-1) {
-          skins = skins + ", "
+          items = items + ", "
         }
       })
   
       return new ModalBuilder()
         .setCustomId(interaction.values[0])
-        .setTitle('Buying: '+skins)
+        .setTitle('Buying: '+items)
         .addComponents(
           new ActionRowBuilder().addComponents(fields.username),
           new ActionRowBuilder().addComponents(fields.timezone),

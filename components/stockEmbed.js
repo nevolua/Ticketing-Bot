@@ -5,7 +5,7 @@ const fs = require('fs');
 const settings = JSON.parse(fs.readFileSync('config.json'))
 
 function embed() {
-  var skins = JSON.parse(fs.readFileSync('data/skins.json'));
+  var items = JSON.parse(fs.readFileSync('data/items.json'));
   
   const em = new EmbedBuilder({
     "color": 10509236,
@@ -14,7 +14,7 @@ function embed() {
     "author": {
         "url": "https://discord.com",
         "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png",
-        "name": `Skin Stock`
+        "name": `Item Stock`
     },
     "description": "",
       
@@ -24,15 +24,15 @@ function embed() {
   })
   
 
-  const fields = skins.map((skin) => ({
-    name: skin.name,
+  const fields = items.map((item) => ({
+    name: item.name,
     value: "",
     inline: true,
   }));
   
 
-  skins.forEach((skin, index) => {
-    fields[index].value += `\n> Price: ${skin.price}\n> In Stock: ${skin.amount}\n`;
+  items.forEach((item, index) => {
+    fields[index].value += `\n> Price: ${item.price}\n> In Stock: ${item.amount}\n`;
   });
   
   // Add the fields to the embed

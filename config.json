@@ -3,5 +3,7 @@
     "stockChannel" : "1162115318286659614",
   
     "token": "MTE1ODE5MzEzNjQ0Nzc5MTIzNA.GO7sen.r1q-4jCftxXR5B3NeKW2NUcJoiPqZMsKEHlwW0",
-    "admins" : ["908526607130591233"]
+    "admins" : ["908526607130591233"],
+
+    "stockUpdateInterval" : 15000
 }

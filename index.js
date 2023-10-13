@@ -14,17 +14,15 @@ client.on('ready', async () => {
   console.log(`Logged in as ${client.user.tag}!`);
 
   functions.sendStartMessage.exec(client);
-  functions.sendSkinStock.exec(client);
-
-  fs.watch('data/skins.json',  (event, filename) => {
-    if (event === 'change') {
-      console.log(`File ${filename} has been modified.`);
+  functions.sendItemStock.exec(client);
 
 
-      functions.sendSkinStock.exec(client);
+    setInterval(function() {
+
+      functions.sendItemStock.exec(client);
       
-    }
-  });
+    }, settings.stockUpdateInterval)
+
   
 });
 
@@ -46,7 +44,7 @@ client.on(Events.InteractionCreate, async interaction => {
       if (interaction.customId.startsWith("close-")) {
         functions.closeTicket.exec(interaction);
       }
-      if (interaction.customId == ("buySkin")) {
+      if (interaction.customId == ("buyItem")) {
         functions.getTicketInfo.exec(interaction);
       }
     }
