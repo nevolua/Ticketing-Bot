@@ -9,11 +9,10 @@ const functions = utils.getFunctions();
 const commands = utils.getCommands();
 const components = utils.getComponents();
 
-// Register commands
 utils.registerCmds();
 
 client.once("ready", () => {
-  console.log(`Logged in as ${client.user.tag}!`);
+  console.log(`Logged into ${client.user.tag}`);
   setupTicketChannel();
   scheduleStockUpdates();
 });

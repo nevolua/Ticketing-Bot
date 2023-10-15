@@ -1,17 +1,23 @@
 const { StringSelectMenuBuilder, ActionRowBuilder, StringSelectMenuOptionBuilder } = require('discord.js');
 
 function dropdown(interaction, items) {
+
+
+  if (items.length == 0) { 
+     items.push({'name': "No skins are currently available.", "amount": "NULL", "price": "NULL"});
+   }
+  
+
   const selectMenu = new StringSelectMenuBuilder()
     .setCustomId(interaction.id)
     .setPlaceholder('Select item(s) (3 max)')
-    .setMinValues(0)
-    .setMaxValues(3)
+    .setMinValues(1)
     .addOptions(
       items.map((item) => 
         new StringSelectMenuOptionBuilder()
-          .setLabel(`${item.name} (${item.amount} available)`)
-          .setDescription(`Price: ${item.price} each`)
-          .setValue(item.name)
+          .setLabel(`${items.length !== 0 ? (item.name + " (" + item.amount+ " available)") : ("No skins are currently available")}`)
+          .setDescription(`Price: ${items.length !== 0 ? (item.price) : ' NULL'}`)
+          .setValue(`${items.length !== 0 ? item.name : null}`)
       )
     )
 
