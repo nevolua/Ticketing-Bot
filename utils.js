@@ -20,9 +20,7 @@ async function registerCmds() {
   var requires = [];
 
   fs.readdirSync(`${__dirname}/commands/`).forEach((file) => {
-    if (file !== "_export.js") {
       requires.push(require(path.join(`${__dirname}/commands/`, file)));
-    }
   });
 
   var commands = [];
