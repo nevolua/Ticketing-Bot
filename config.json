@@ -1,0 +1,19 @@
+{
+  "ticketCreationChannelID": "",
+
+  "token": "",
+  "admins": ["admin id 1", "admin id 2"],
+
+  "fields" : {
+    "Example Field 1" : "Tell me about blah",
+    "Example Field 2" : "Tell me about blah2"
+  },
+
+
+  "ticketCreationEmbedText" : "Create Tickets Here!",
+  "ticketCreationButtonText" : "Create",
+  "ticketCreationPopupTitle" : "Creating A Ticket!",
+  "createdTicketEmbedTitle" : "Ticket For ..."
+  
+}
+
