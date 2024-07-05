@@ -6,26 +6,11 @@ const path = require("path");
 
 const rest = new REST({ version: "10" }).setToken(settings.token);
 
-async function createTextChannel(guild, username, allowed_users) {
+async function createTextChannel(guild, username) {
   const channel = await guild.channels.create({
     name: username + "- Ticket",
-    type: 'GUILD_TEXT',
+    type: ChannelType.GuildText,
     parent: null,
-  });
-
-  await Promise.all(allowed_users.map(async (userId) => {
-    const user = await guild.members.fetch(userId);
-    if (user) {
-      await channel.permissionOverwrites.create(user, {
-        VIEW_CHANNEL: true,
-        SEND_MESSAGES: true,
-        READ_MESSAGE_HISTORY: true,
-      });
-    }
-  }));
-
-  await channel.permissionOverwrites.create(guild.roles.everyone, {
-    VIEW_CHANNEL: false,
   });
 
   return channel;

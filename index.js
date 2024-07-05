@@ -1,6 +1,6 @@
 const { Client, GatewayIntentBits, Events } = require("discord.js");
 const fs = require("fs");
-
+const config = JSON.parse(require('fs').readFileSync("config.json"))
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 const utils = require("./utils");
 const settings = JSON.parse(fs.readFileSync("config.json"));
@@ -38,10 +38,7 @@ async function createTicketChannel(interaction) {
   const guild = interaction.guild;
   const username = interaction.user.username;
 
-  var allowed_users = config.admins
-  allowed_users.push(interaction.user.id)
-  
-  const ticketChannel = await utils.createTextChannel(guild, username, allowed_users);
+  const ticketChannel = await utils.createTextChannel(guild, username);
 
   if (interaction.customId == "buying") {
     const fieldsArray = [];
@@ -79,7 +76,7 @@ async function handleButtonInteraction(interaction) {
         }, 3000);
       } else {
         await interaction.reply(
-          "You don't have permission to use that command.",
+          "Only admins can close tickets.",
           { ephemeral: true },
         );
       }
