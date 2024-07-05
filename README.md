@@ -87,10 +87,3 @@ We welcome contributions to this project. To get started, please read the [CONTR
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-## Acknowledgements
-
-I'd like to acknowledge the following libraries and services that have made this project possible:
-
-- [Discord.js](https://discord.js.org/): The Discord API library that powers this bot.
-- [Node.js](https://nodejs.org/): The runtime environment for executing JavaScript code on the server.
