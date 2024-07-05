@@ -17,9 +17,9 @@ const components = [
     }
   
   
-    for (const fieldName in config.fields) {
-      if (config.fields.hasOwnProperty(fieldName)) {
-        const description = config.fields[fieldName];
+    for (const fieldName in config.ticketFields) {
+      if (config.ticketFields.hasOwnProperty(fieldName)) {
+        const description = config.ticketFields[fieldName];
         addField(fieldName, description);
       }
     }
@@ -105,7 +105,12 @@ const utils = [
     }
   },
   checkAdmin = function(interaction) {
-    return (config.admins.includes(interaction.user.id))
+    try {
+      return (config.admins.includes(interaction.user.id)) || (config.admins.includes(parseInt(interaction.user.id)))
+    } catch (e) {
+      console.warn(`Config error: ${e}`)
+    }
+   
   },
   createTextChannel = async function(guild, username) {
     const channel = await guild.channels.create({
@@ -205,4 +210,11 @@ client.on(Events.InteractionCreate, async (interaction) => {
   }
 });
 
-client.login(config.token);
+(async () => {
+  try {
+    await client.login(config.token);
+    console.log('Logged in successfully');
+  } catch (e) {
+    console.warn("Config Error: The bot token field in config.json is either missing or invalid.");
+  }
+})();

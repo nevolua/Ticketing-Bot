@@ -4,7 +4,7 @@
   "token": "",
   "admins": ["admin id 1", "admin id 2"],
 
-  "fields" : {
+  "ticketFields" : {
     "Example Field 1" : "Tell me about blah",
     "Example Field 2" : "Tell me about blah2"
   },
