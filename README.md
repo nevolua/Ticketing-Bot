@@ -76,7 +76,6 @@ The bot's behavior can be customized by editing the `config.json` file. Here's w
 
 You can customize the Discord Ticketing Bot in various ways:
 
-- Modify the appearance and behavior of components in the `components/` directory.
 - Extend the bot's functionality by adding new commands and features.
 - Customize the messages and templates used by the bot for user interactions.
 
