@@ -9,7 +9,6 @@ The Discord Ticketing Bot is a versatile bot designed to create and manage ticke
 - [Installation](#installation)
 - [Usage](#usage)
 - [Configuration](#configuration)
-- [Bot Commands](#bot-commands)
 - [Customization](#customization)
 - [Contributing](#contributing)
 - [License](#license)
