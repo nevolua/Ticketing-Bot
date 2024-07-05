@@ -60,16 +60,14 @@ The bot's behavior can be customized by editing the `config.json` file. Here's w
 - **createdTicketEmbedTitle**: The title of the embed sent when a ticket is created.
 
 
-## Customization
-
-You can customize the Discord Ticketing Bot in various ways:
-
-- Extend the bot's functionality by adding new commands and features.
-- Customize the messages and templates used by the bot for user interactions.
-
 ## Contributing
 
 We welcome contributions to this project. To get started, please read the [CONTRIBUTING.md](CONTRIBUTING.md) file for details on our code of conduct and the process for submitting pull requests.
+
+You're free to customize the bot in the following ways:
+
+- Extend the bot's functionality by adding new commands and features.
+- Customize the messages and templates used by the bot for user interactions.
 
 ## License
 

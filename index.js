@@ -1,10 +1,10 @@
-const { Client, GatewayIntentBits, Events, TextInputBuilder, TextInputStyle, ModalBuilder, ActionRowBuilder, } = require("discord.js");
+const { Client, GatewayIntentBits, Events, TextInputBuilder, TextInputStyle, ModalBuilder, ActionRowBuilder, EmbedBuilder, ButtonBuilder, ButtonStyle, ChannelType } = require("discord.js");
 const fs = require("fs");
 const config = JSON.parse(require('fs').readFileSync("config.json"))
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
-const components = [
-  buyModal = function() {
+const components = {
+  buyModal: function() {
     const config = JSON.parse(require('fs').readFileSync("config.json"))
   
     const fields = {};
@@ -34,7 +34,7 @@ const components = [
   
     return builder;
   },
-  startEmbed = function() {
+  startEmbed: function() {
     const em = new EmbedBuilder({
       color: 10509236,
       timestamp: Date.now(),
@@ -64,7 +64,7 @@ const components = [
       components: [row],
     };
   },
-  ticketEmbed = function(fieldsArray, channel) {
+  ticketEmbed: function(fieldsArray, channel) {
     const config = JSON.parse(fs.readFileSync("config.json"));
   
     const em = new EmbedBuilder()
@@ -90,10 +90,10 @@ const components = [
       components: [row],
     };
   }
-]
+}
 
-const utils = [
-  purge = async function(channel) {
+const utils = {
+  purge: async function(channel) {
     try {
       let fetched;
       do {
@@ -104,7 +104,7 @@ const utils = [
       //
     }
   },
-  checkAdmin = function(interaction) {
+  checkAdmin: function(interaction) {
     try {
       return (config.admins.includes(interaction.user.id)) || (config.admins.includes(parseInt(interaction.user.id)))
     } catch (e) {
@@ -112,7 +112,7 @@ const utils = [
     }
    
   },
-  createTextChannel = async function(guild, username) {
+  createTextChannel: async function(guild, username) {
     const channel = await guild.channels.create({
       name: username + "- Ticket",
       type: ChannelType.GuildText,
@@ -121,7 +121,7 @@ const utils = [
   
     return channel;
   },
-  createTicketChannel = async function(interaction) {
+  createTicketChannel: async function(interaction) {
     const guild = interaction.guild;
     const username = interaction.user.username;
   
@@ -134,7 +134,7 @@ const utils = [
         fieldsArray.push([field.customId, field.value]);
       });
   
-      const embedData = components.ticketEmbed.embed(
+      const embedData = components.ticketEmbed(
         fieldsArray,
         ticketChannel
       );
@@ -143,19 +143,11 @@ const utils = [
     }
   },
   
-  setupTicketChannel = async function() {
-    const ticketChannel = client.channels.cache.get(
-      config.ticketCreationChannelID,
-    );
-    await utils.purge(ticketChannel);
-    await ticketChannel.send(components.startEmbed());
-  }
-]
+}
 
-const handlers = [
+const handlers = {
   
-  handleButtonInteraction = async function(interaction) {
-    try {
+  handleButtonInteraction: async function(interaction) {
       if (interaction.customId.startsWith("close-")) {
         const hasAdmin = utils.checkAdmin(interaction);
         if (hasAdmin) {
@@ -170,15 +162,13 @@ const handlers = [
           );
         }
       } else if (interaction.customId === "open") {
-        const modal = await components.buyModal.modal();
+        const modal = await components.buyModal();
         await interaction.showModal(modal);
       }
-    } catch (e) {
-      console.log(e);  
-    }
+
   },
 
-  handleModalSubmit = async function(interaction) {
+  handleModalSubmit:  async function(interaction) {
     await interaction.reply({
       content:
         "Your submission was received! Creating you a ticket now...",
@@ -188,12 +178,17 @@ const handlers = [
     await utils.createTicketChannel(interaction);
   }
 
-]
+}
 
 
-client.once("ready", () => {
-  console.log(`Logged into ${client.user.tag}`);
-  utils.setupTicketChannel();
+client.once("ready", async () => {
+    console.log(`Logged into ${client.user.tag}`);
+
+    const ticketChannel = client.channels.cache.get(
+      config.ticketCreationChannelID,
+    );
+    await utils.purge(ticketChannel);
+    await ticketChannel.send(components.startEmbed());
 });
 
 client.on(Events.InteractionCreate, async (interaction) => {
