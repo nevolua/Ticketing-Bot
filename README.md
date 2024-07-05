@@ -44,7 +44,7 @@ git clone https://github.com/yourusername/discord-ticketing-bot.git
 npm install
 ```
 
-3. Configure the bot by editing the `config.json` file. Replace the placeholders with your bot token and other settings.
+3. Configure the bot by editing the `config.json` file. (refer to #configuration)
 
 4. Start the bot:
 ```
