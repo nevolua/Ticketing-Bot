@@ -1,9 +1,0 @@
-{
-  "ticketMessageChannel": "",
-  "stockChannel": "",
-
-  "token": "",
-  "admins": [""],
-
-  "stockUpdateInterval": 2000
-}
