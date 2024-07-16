@@ -5,8 +5,8 @@
   "admins": ["admin id 1", "admin id 2"],
 
   "ticketFields" : {
-    "Example Field 1" : "Tell me about blah",
-    "Example Field 2" : "Tell me about blah2"
+    "Example Field Title 1" : "Tell me about blah",
+    "Example Field Title 2" : "Tell me about blah2"
   },
 
 
